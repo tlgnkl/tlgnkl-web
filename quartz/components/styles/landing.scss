@@ -1,201 +1,639 @@
   /* Базовые переменные */
 :root {
-  --card-height: 320px;
-  --card-gap: 25px;
+  /* Размеры и пространство */
+  --card-height: min(380px, 40vh);
+  --card-gap: clamp(16px, 2vw, 30px);
+  --card-border-radius: 16px;
+  --page-max-width: 1400px;
+  --transition-duration: 0.35s;
+  --transition-easing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  
+  /* Цвета для светлой темы */
   --background-color: #f5f2e9;
-  --card-background: #d1d0cc;
   --grid-line-color: rgba(0, 0, 0, 0.08);
+  --title-color: #1a1a1a;
+  --text-color: #333333;
+  --accent-color: #3068e1;
+  --card-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  --card-hover-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+  
+  /* Карточки светлой темы */
+  --card-coming-bg: #f0efed;
+  --card-coming-text: #555;
+  --card-coming-gradient: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(0,0,0,0.05) 100%);
+  
+  --card-1-bg: #e9f2ff;
+  --card-1-accent: #5793f5;
+  --card-1-text: #2b5490;
+  
+  --card-2-bg: #eef5e2;
+  --card-2-accent: #8eb358;
+  --card-2-text: #526636;
+  
+  --card-3-bg: #fbf0e2;
+  --card-3-accent: #d79430;
+  --card-3-text: #915f13;
+  
+  --card-4-bg: #f5edf2;
+  --card-4-accent: #c191ad;
+  --card-4-text: #6d5162;
+  
+  --card-5-bg: #fdf0eb;
+  --card-5-accent: #f39f86;
+  --card-5-text: #a05239;
+  
+  --card-6-bg: #fceff3;
+  --card-6-accent: #e6a2b8;
+  --card-6-text: #9c4e6e;
+}
+
+/* Переменные для темной темы */
+:root[saved-theme="dark"] {
+  /* Цвета для темной темы */
+  --background-color: #1a1a1a;
+  --grid-line-color: rgba(255, 255, 255, 0.08);
+  --title-color: #f0f0f0;
+  --text-color: #e0e0e0;
+  --accent-color: #5671f5;
+  --card-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+  --card-hover-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.4), 0 2px 5px rgba(0, 0, 0, 0.2);
+  
+  /* Карточки темной темы */
+  --card-coming-bg: #2a2a2a;
+  --card-coming-text: #c0c0c0;
+  --card-coming-gradient: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.1) 100%);
+  
+  --card-1-bg: #34508a;
+  --card-1-accent: #649aea;
+  --card-1-text: #e9f2ff;
+  
+  --card-2-bg: #596356;
+  --card-2-accent: #aab172;
+  --card-2-text: #eef5e2;
+  
+  --card-3-bg: #755020;
+  --card-3-accent: #bf7d1a;
+  --card-3-text: #fbf0e2;
+  
+  --card-4-bg: #664a5b;
+  --card-4-accent: #ad7e95;
+  --card-4-text: #f5edf2;
+  
+  --card-5-bg: #864939;
+  --card-5-accent: #eb856f;
+  --card-5-text: #fdf0eb;
+  
+  --card-6-bg: #874d61;
+  --card-6-accent: #e18fa7;
+  --card-6-text: #fceff3;
+}
+
+/* Текстуры фона и общие стили страницы */
+body {
+  background-color: var(--background-color);
+  
+  /* Фон для светлой темы */
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(0, 0, 0, 0.02) 2%, transparent 10%),
+    radial-gradient(circle at 75% 75%, rgba(0, 0, 0, 0.02) 2%, transparent 10%),
+    radial-gradient(circle at 100% 10%, rgba(0, 0, 0, 0.01) 10%, transparent 30%);
+  background-size: 60px 60px, 60px 60px, 100% 100%;
+  background-attachment: fixed;
+  
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    background: 
+      linear-gradient(to bottom, 
+        rgba(var(--accent-color-rgb, 48, 104, 225), 0.03) 0%, 
+        rgba(var(--accent-color-rgb, 48, 104, 225), 0) 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+/* Специфические стили для темной темы */
+:root[saved-theme="dark"] body {
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.03) 2%, transparent 10%),
+    radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.03) 2%, transparent 10%),
+    radial-gradient(circle at 100% 10%, rgba(255, 255, 255, 0.01) 10%, transparent 30%);
+    
+  &::before {
+    background: 
+      linear-gradient(to bottom, 
+        rgba(86, 113, 245, 0.05) 0%, 
+        rgba(86, 113, 245, 0) 50%);
+  }
 }
 
 /* Основная обертка */
 .landing-wrapper {
   width: 100%;
-  max-width: 1200px;
+  max-width: var(--page-max-width);
   margin: 0 auto;
-  padding: 40px;
+  padding: clamp(20px, 5vw, 60px);
   box-sizing: border-box;
   text-align: center;
-  background-color: var(--background-color);
+  position: relative;
+  z-index: 1;
 }
 
-/* Заголовок */
+/* Заголовок с декоративным подчеркиванием */
 .landing-title {
-  font-family: "Tiempos", serif;
+  font-family: var(--titleFont);
   font-weight: normal;
-  font-size: 42px;
+  font-size: clamp(32px, 5vw, 58px);
   margin: 0 0 10px;
-  color: #333;
+  color: var(--title-color);
   text-align: center;
+  letter-spacing: -0.02em;
+  transition: transform var(--transition-duration) var(--transition-easing);
+  position: relative;
+  display: inline-block;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: clamp(80px, 30%, 120px);
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--accent-color) 20%, var(--accent-color) 80%, transparent);
+    border-radius: 3px;
+    opacity: 0.7;
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+    &:hover {
+      transform: translateY(-2px) scale(1.01);
+      
+      &::after {
+        width: clamp(100px, 40%, 160px);
+        opacity: 1;
+      }
+    }
+  }
 }
 
-/* Навигационные ссылки */
+/* Навигационные ссылки с улучшенным стилем */
 .landing-subtitle {
-  font-family: monospace;
-  font-size: 14px;
+  font-family: var(--codeFont);
+  font-size: clamp(12px, 1.3vw, 16px);
   text-transform: uppercase;
-  margin: 0 0 40px;
+  margin: 10px 0 clamp(35px, 6vw, 70px);
   padding: 0;
-  color: #333;
+  color: var(--text-color);
   text-align: center;
+  letter-spacing: 0.05em;
+  
+  a {
+    color: var(--text-color);
+    text-decoration: none;
+    position: relative;
+    padding: 0 2px;
+    transition: color 0.2s ease, transform 0.2s ease;
+    display: inline-block;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background-color: var(--accent-color);
+      transition: width var(--transition-duration) var(--transition-easing);
+    }
+    
+    &:hover {
+      color: var(--accent-color);
+      transform: translateY(-1px);
+      
+      &::after {
+        width: 100%;
+      }
+    }
+  }
 }
 
-.landing-subtitle a {
-  color: #333;
-  text-decoration: none;
-}
-
-.landing-subtitle a:hover {
-  text-decoration: underline;
-}
-
-/* Сетка карточек с использованием CSS Grid */
+/* Адаптивная сетка карточек */
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 колонки равной ширины */
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
   gap: var(--card-gap);
-  width: 160%;
-  margin: 0;
+  width: 100%;
+  margin: 0 auto;
   position: relative;
-  left: 50%;
-  transform: translateX(-50%);
+  
+  @media (min-width: 769px) {
+    width: min(160%, 1800px);
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  }
+  
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr));
+  }
+  
+  /* Декоративная сетка на фоне */
+  &::before {
+    content: '';
+    position: absolute;
+    top: -30px;
+    left: -30px;
+    right: -30px;
+    bottom: -30px;
+    background-image: 
+      linear-gradient(to right, var(--grid-line-color) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line-color) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: -1;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+  
+  :root[saved-theme="dark"] & {
+    &::before {
+      opacity: 0.15;
+    }
+  }
 }
 
-/* Обертка для карточки */
+/* Обертка для карточки с 3D-эффектом */
 .card-wrapper {
   width: 100%;
   height: var(--card-height);
+  transform-origin: center;
+  transition: transform 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+  perspective: 1000px;
+  
+  @media (prefers-reduced-motion: no-preference) {
+    &:hover {
+      z-index: 10;
+    }
+  }
 }
 
-/* Карточки */
+/* Карточки с улучшенным 3D эффектом */
 .card {
   display: block;
   width: 100%;
   height: 100%;
-  border-radius: 8px;
+  border-radius: var(--card-border-radius);
   overflow: hidden;
   position: relative;
   text-decoration: none;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: var(--card-shadow);
+  transition: 
+    transform var(--transition-duration) var(--transition-easing),
+    box-shadow var(--transition-duration) var(--transition-easing);
   box-sizing: border-box;
-  padding: 20px;
+  padding: clamp(20px, 3vw, 30px);
+  transform-style: preserve-3d;
+  
+  /* Базовый градиент */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      145deg, 
+      rgba(255, 255, 255, 0.15) 0%, 
+      rgba(0, 0, 0, 0.02) 50%, 
+      rgba(0, 0, 0, 0.1) 100%
+    );
+    z-index: 1;
+    opacity: 0.7;
+    transition: opacity var(--transition-duration) var(--transition-easing);
+  }
+  
+  /* Блестящая грань карточки */
+  &::after {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    right: -100%;
+    bottom: -100%;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.03) 30%,
+      rgba(255, 255, 255, 0.1) 50%,
+      rgba(255, 255, 255, 0.03) 70%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(45deg) translate3d(0, 0, 0);
+    transition: transform 0.7s cubic-bezier(0.11, 0.65, 0.33, 1);
+    z-index: 1;
+    pointer-events: none;
+  }
+  
+  /* Специальный градиент для светлой темы */
+  :root:not([saved-theme="dark"]) &::before {
+    background: linear-gradient(
+      145deg, 
+      rgba(255, 255, 255, 0.4) 0%, 
+      rgba(255, 255, 255, 0.1) 50%, 
+      rgba(0, 0, 0, 0.05) 100%
+    );
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+    &:hover {
+      transform: translateY(-8px) rotateX(2deg) rotateY(2deg) scale(1.02);
+      box-shadow: var(--card-hover-shadow);
+      
+      &::before {
+        opacity: 0.9;
+      }
+      
+      &::after {
+        transform: rotate(45deg) translate3d(100%, 100%, 0);
+      }
+      
+      .card-title {
+        transform: translateY(-2px) translateZ(10px);
+      }
+      
+      .card-subtitle {
+        transform: translateY(-1px) translateZ(5px);
+      }
+      
+      .card-description {
+        transform: translateZ(3px);
+      }
+      
+      .card-img-wrapper {
+        transform: translateY(-5px) scale(1.05) translateZ(20px);
+      }
+    }
+  }
 }
 
-.card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-/* Содержимое карточек */
+/* Содержимое карточек с 3D эффектом */
 .card-content {
   position: relative;
   z-index: 2;
   display: flex;
   flex-direction: column;
   height: 100%;
+  transform-style: preserve-3d;
 }
 
 /* Заголовок карточки */
 .card-title {
-  font-family: "Tiempos", serif;
+  font-family: var(--titleFont);
   font-weight: normal;
-  font-size: 28px;
-  color: white;
+  font-size: clamp(22px, 3vw, 32px);
+  color: inherit;
   margin: 0 0 6px;
   line-height: 1.1;
   text-align: left;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform var(--transition-duration) var(--transition-easing);
 }
 
 /* Подзаголовок карточки */
 .card-subtitle {
-  font-family: monospace;
-  font-size: 14px;
+  font-family: var(--codeFont);
+  font-size: clamp(12px, 1.2vw, 16px);
   text-transform: uppercase;
-  color: white;
+  color: inherit;
   margin: 0;
   text-align: left;
+  opacity: 0.9;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: transform var(--transition-duration) var(--transition-easing);
+  letter-spacing: 0.03em;
+}
+
+/* Описание карточки с улучшенным стилем */
+.card-description {
+  font-family: var(--bodyFont);
+  font-size: clamp(12px, 1.1vw, 14px);
+  color: inherit;
+  opacity: 0.85;
+  margin: 10px 0 0;
+  text-align: left;
+  max-width: 95%;
+  line-height: 1.5;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: transform var(--transition-duration) var(--transition-easing), opacity 0.3s ease;
+  display: none;
+  overflow: hidden;
+  
+  @media (min-width: 768px) {
+    display: block;
+    margin-top: auto;
+    padding-top: 15px;
+    opacity: 0.7;
+    max-height: 90px;
+    
+    .card:hover & {
+      opacity: 1;
+    }
+  }
 }
 
 /* Контейнер для изображения */
 .card-img-wrapper {
   position: absolute;
-  bottom: 20px;
-  right: 20px;
+  bottom: clamp(15px, 3vw, 25px);
+  right: clamp(15px, 3vw, 25px);
   z-index: 1;
   max-width: 50%;
-  max-height: 90px;
+  max-height: 45%;
+  transition: transform var(--transition-duration) var(--transition-easing);
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.15));
+  transform-style: preserve-3d;
 }
 
 .card-img {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
+  transform-style: preserve-3d;
 }
 
 /* Фоны для карточек */
-.card-coming {
-  background-color: #d1d0cc;
+
+/* Общие стили для светлой темы */
+:root:not([saved-theme="dark"]) {
+  .card {
+    /* Фильтры для всех карточек в светлой теме */
+    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.03));
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    
+    .card-title, .card-subtitle, .card-description {
+      color: inherit;
+    }
+  }
 }
 
+/* Карточка "Скоро появится" */
+.card-coming {
+  background-color: var(--card-coming-bg);
+  
+  .card-title, .card-subtitle, .card-description {
+    color: var(--card-coming-text);
+  }
+  
+  /* Градиент в зависимости от темы */
+  background-image: var(--card-coming-gradient);
+}
+
+/* Индивидуальные карточки */
 .card-1 {
-  background-color: #649aea;
+  background-color: var(--card-1-bg);
   background-image: url("/static/1-noise.png");
   background-size: cover;
+  
+  /* Разные цвета текста для светлой и темной темы */
+  .card-title, .card-subtitle {
+    color: var(--card-1-text);
+  }
+  
+  .card-description {
+    color: var(--card-1-text);
+    opacity: 0.85;
+  }
+  
+  /* Акцентная полоса для светлой темы */
+  :root:not([saved-theme="dark"]) & {
+    border-top: 3px solid var(--card-1-accent);
+  }
 }
 
 .card-2 {
-  background-color: #aab172;
+  background-color: var(--card-2-bg);
   background-image: url("/static/2-noise.png");
   background-size: cover;
+  
+  .card-title, .card-subtitle {
+    color: var(--card-2-text);
+  }
+  
+  .card-description {
+    color: var(--card-2-text);
+    opacity: 0.85;
+  }
+  
+  :root:not([saved-theme="dark"]) & {
+    border-top: 3px solid var(--card-2-accent);
+  }
 }
 
 .card-3 {
-  background-color: #bf7d1a;
+  background-color: var(--card-3-bg);
   background-image: url("/static/3-noise.png");
   background-size: cover;
+  
+  .card-title, .card-subtitle {
+    color: var(--card-3-text);
+  }
+  
+  .card-description {
+    color: var(--card-3-text);
+    opacity: 0.85;
+  }
+  
+  :root:not([saved-theme="dark"]) & {
+    border-top: 3px solid var(--card-3-accent);
+  }
 }
 
 .card-4 {
-  background-color: #ad7e95;
+  background-color: var(--card-4-bg);
   background-image: url("/static/4-noise.png");
   background-size: cover;
+  
+  .card-title, .card-subtitle {
+    color: var(--card-4-text);
+  }
+  
+  .card-description {
+    color: var(--card-4-text);
+    opacity: 0.85;
+  }
+  
+  :root:not([saved-theme="dark"]) & {
+    border-top: 3px solid var(--card-4-accent);
+  }
 }
 
 .card-5 {
-  background-color: #eb856f;
+  background-color: var(--card-5-bg);
   background-image: url("/static/5-noise.png");
   background-size: cover;
+  
+  .card-title, .card-subtitle {
+    color: var(--card-5-text);
+  }
+  
+  .card-description {
+    color: var(--card-5-text);
+    opacity: 0.85;
+  }
+  
+  :root:not([saved-theme="dark"]) & {
+    border-top: 3px solid var(--card-5-accent);
+  }
 }
 
 .card-6 {
-  background-color: #e18fa7;
+  background-color: var(--card-6-bg);
   background-image: url("/static/6-noise.png");
   background-size: cover;
-}
-
-/* Медиа-запросы для адаптивности */
-@media (max-width: 900px) {
-  .cards-grid {
-    grid-template-columns: repeat(3, 1fr); /* 3 колонки для планшетов */
-  }
-}
-
-@media (max-width: 700px) {
-  .cards-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 колонки для маленьких планшетов */
+  
+  .card-title, .card-subtitle {
+    color: var(--card-6-text);
   }
   
-  .landing-title {
-    font-size: 36px;
+  .card-description {
+    color: var(--card-6-text);
+    opacity: 0.85;
+  }
+  
+  :root:not([saved-theme="dark"]) & {
+    border-top: 3px solid var(--card-6-accent);
   }
 }
 
-@media (max-width: 480px) {
-  .cards-grid {
-    grid-template-columns: 1fr; /* 1 колонка для телефонов */
+/* Анимация появления страницы */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
   }
-  
-  .landing-title {
-    font-size: 32px;
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.landing-wrapper {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.card-wrapper {
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+@for $i from 1 through 12 {
+  .card-wrapper:nth-child(#{$i}) {
+    animation-delay: #{0.1 + ($i * 0.05)}s;
   }
 }
