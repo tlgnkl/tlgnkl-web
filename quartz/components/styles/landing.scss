@@ -1,0 +1,201 @@
+  /* Базовые переменные */
+:root {
+  --card-height: 320px;
+  --card-gap: 25px;
+  --background-color: #f5f2e9;
+  --card-background: #d1d0cc;
+  --grid-line-color: rgba(0, 0, 0, 0.08);
+}
+
+/* Основная обертка */
+.landing-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px;
+  box-sizing: border-box;
+  text-align: center;
+  background-color: var(--background-color);
+}
+
+/* Заголовок */
+.landing-title {
+  font-family: "Tiempos", serif;
+  font-weight: normal;
+  font-size: 42px;
+  margin: 0 0 10px;
+  color: #333;
+  text-align: center;
+}
+
+/* Навигационные ссылки */
+.landing-subtitle {
+  font-family: monospace;
+  font-size: 14px;
+  text-transform: uppercase;
+  margin: 0 0 40px;
+  padding: 0;
+  color: #333;
+  text-align: center;
+}
+
+.landing-subtitle a {
+  color: #333;
+  text-decoration: none;
+}
+
+.landing-subtitle a:hover {
+  text-decoration: underline;
+}
+
+/* Сетка карточек с использованием CSS Grid */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 колонки равной ширины */
+  gap: var(--card-gap);
+  width: 160%;
+  margin: 0;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Обертка для карточки */
+.card-wrapper {
+  width: 100%;
+  height: var(--card-height);
+}
+
+/* Карточки */
+.card {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  text-decoration: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Содержимое карточек */
+.card-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Заголовок карточки */
+.card-title {
+  font-family: "Tiempos", serif;
+  font-weight: normal;
+  font-size: 28px;
+  color: white;
+  margin: 0 0 6px;
+  line-height: 1.1;
+  text-align: left;
+}
+
+/* Подзаголовок карточки */
+.card-subtitle {
+  font-family: monospace;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: white;
+  margin: 0;
+  text-align: left;
+}
+
+/* Контейнер для изображения */
+.card-img-wrapper {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1;
+  max-width: 50%;
+  max-height: 90px;
+}
+
+.card-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* Фоны для карточек */
+.card-coming {
+  background-color: #d1d0cc;
+}
+
+.card-1 {
+  background-color: #649aea;
+  background-image: url("/static/1-noise.png");
+  background-size: cover;
+}
+
+.card-2 {
+  background-color: #aab172;
+  background-image: url("/static/2-noise.png");
+  background-size: cover;
+}
+
+.card-3 {
+  background-color: #bf7d1a;
+  background-image: url("/static/3-noise.png");
+  background-size: cover;
+}
+
+.card-4 {
+  background-color: #ad7e95;
+  background-image: url("/static/4-noise.png");
+  background-size: cover;
+}
+
+.card-5 {
+  background-color: #eb856f;
+  background-image: url("/static/5-noise.png");
+  background-size: cover;
+}
+
+.card-6 {
+  background-color: #e18fa7;
+  background-image: url("/static/6-noise.png");
+  background-size: cover;
+}
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 900px) {
+  .cards-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 колонки для планшетов */
+  }
+}
+
+@media (max-width: 700px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 колонки для маленьких планшетов */
+  }
+  
+  .landing-title {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cards-grid {
+    grid-template-columns: 1fr; /* 1 колонка для телефонов */
+  }
+  
+  .landing-title {
+    font-size: 32px;
+  }
+}
