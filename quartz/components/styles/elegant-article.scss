@@ -1,0 +1,75 @@
+        background: var(--light-accent-subtle);
+        
+        [saved-theme="dark"] & {
+          background: var(--dark-accent-subtle);
+        }
+      }
+    }
+  }
+  
+  /* Изображения */
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    display: block;
+    margin: var(--space-lg) auto;
+    box-shadow: var(--light-shadow);
+    transition: transform var(--transition-medium), box-shadow var(--transition-medium);
+    border: 1px solid var(--light-border);
+    
+    &:hover {
+      transform: scale(1.01);
+      box-shadow: var(--light-hover-shadow);
+    }
+    
+    /* Класс для увеличенных изображений */
+    &.expanded {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.5);
+      cursor: zoom-out;
+    }
+    
+    [saved-theme="dark"] & {
+      box-shadow: var(--dark-shadow);
+      border-color: var(--dark-border);
+      
+      &:hover {
+        box-shadow: var(--dark-hover-shadow);
+      }
+    }
+  }
+  
+  /* Горизонтальные линии */
+  hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--light-border), transparent);
+    margin: var(--space-2xl) 0;
+    
+    [saved-theme="dark"] & {
+      background: linear-gradient(to right, transparent, var(--dark-border), transparent);
+    }
+  }
+  
+  /* Выделение/подсветка */
+  mark {
+    background-color: var(--light-mark-bg);
+    padding: 0.1em 0.4em;
+    border-radius: var(--radius-sm);
+    
+    [saved-theme="dark"] & {
+      background-color: var(--dark-mark-bg);
+    }
+  }
+}
