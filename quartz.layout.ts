@@ -5,7 +5,7 @@ import * as Component from "./quartz/components"
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [
-    Component.Marquee(),
+    // Removing the Marquee component to get rid of the top text
   ],
   afterBody: [],
   footer: Component.Footer({
