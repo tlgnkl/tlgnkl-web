@@ -1,5 +1,11 @@
 {
   "version": 2,
   "buildCommand": "npx quartz build",
-  "outputDirectory": "public"
+  "outputDirectory": "public",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/:path", "destination": "/:path.html" },
+    { "source": "/:path/", "destination": "/:path.html" }
+  ]
 }
