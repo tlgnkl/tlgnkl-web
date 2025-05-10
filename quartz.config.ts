@@ -11,7 +11,7 @@ const config: QuartzConfig = {
       tagId: "G-PBC0Y59ZMD"
     },
     locale: "ru-RU",
-    baseUrl: "tlgnkl-web.vercel.app",
+    baseUrl: "https://tlgnkl-web.vercel.app",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "modified",
     theme: {
