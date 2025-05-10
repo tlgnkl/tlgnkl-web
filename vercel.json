@@ -1,9 +1,5 @@
 {
   "version": 2,
   "buildCommand": "npx quartz build",
-  "outputDirectory": "public",
-  "routes": [
-    { "handle": "filesystem" },
-    { "src": "/(.*)" ,"dest": "/index.html" }
-  ]
+  "outputDirectory": "public"
 }
